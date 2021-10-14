@@ -23,7 +23,7 @@ class DiaristaRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $regras = [
             'nome_completo' => ['required', 'max:100'],
             'cpf' => ['required', 'size:14'],
             'email' => ['required', 'email', 'max:100'],
@@ -34,6 +34,13 @@ class DiaristaRequest extends FormRequest
             'cidade' => ['required', 'max:50'],
             'estado' => ['required', 'size:2'],
             'cep' => ['required'],
+            'foto_usuario' => ['image']
         ];
+
+        if ($this->isMethod('post')) {
+            $regras['foto_usuario'] = ['required', 'image'];
+        }
+
+        return $regras;
     }
 }
